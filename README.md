@@ -105,6 +105,10 @@ def daily_cost() -> str:
 
 
 def main() -> None:
+    # Windows 控制台默认 GBK，进度条字符 █░ 会触发 UnicodeEncodeError
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")
+
     try:
         data = json.load(sys.stdin)
     except json.JSONDecodeError:
